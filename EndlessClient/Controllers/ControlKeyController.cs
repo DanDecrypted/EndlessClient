@@ -31,8 +31,6 @@ namespace EndlessClient.Controllers
 
         public bool Attack()
         {
-            _characterAnimationActions.ClearWalkPath();
-
             if (!CanAttackAgain())
                 return false;
 
@@ -44,7 +42,7 @@ namespace EndlessClient.Controllers
         private bool CanAttackAgain()
         {
             var rp = _characterProvider.MainCharacter.RenderProperties;
-            return rp.IsActing(CharacterActionState.Standing) ||
+            return rp.IsActing(CharacterActionState.Standing, CharacterActionState.Walking) ||
                    rp.RenderAttackFrame == CharacterRenderProperties.MAX_NUMBER_OF_ATTACK_FRAMES;
         }
 
