@@ -1,4 +1,5 @@
 ﻿using EndlessClient.Controllers;
+using EndlessClient.ControlSets;
 using EndlessClient.Dialogs;
 using EndlessClient.GameExecution;
 using EndlessClient.HUD;
@@ -27,15 +28,17 @@ namespace EndlessClient.Input
                                 IHudButtonController hudButtonController,
                                 ICurrentMapStateRepository currentMapStateRepository,
                                 IActiveDialogProvider activeDialogProvider,
-                                IClientWindowSizeProvider clientWindowSizeProvider)
+                                IClientWindowSizeProvider clientWindowSizeProvider,
+                                IHudControlProvider hudControlsProvider)
         {
             _handlers = new List<IInputHandler>
             {
-                new ArrowKeyHandler(endlessGameProvider,
+                new MovementKeyHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     arrowKeyController,
-                    currentMapStateRepository),
+                    currentMapStateRepository,
+                    hudControlsProvider),
                 new ControlKeyHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,

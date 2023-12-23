@@ -111,6 +111,9 @@ namespace EndlessClient.UIControls
 
         protected override bool HandleTextInput(KeyboardEventArgs eventArgs)
         {
+            if (eventArgs.Key is Keys.A or Keys.S or Keys.D or Keys.W && string.IsNullOrWhiteSpace(Text))
+                return false;
+
             if (_ignoreAllInput)
                 return false;
 

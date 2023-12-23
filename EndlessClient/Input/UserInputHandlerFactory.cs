@@ -1,5 +1,6 @@
 ﻿using AutomaticTypeMapper;
 using EndlessClient.Controllers;
+using EndlessClient.ControlSets;
 using EndlessClient.Dialogs;
 using EndlessClient.GameExecution;
 using EndlessClient.HUD;
@@ -22,6 +23,7 @@ namespace EndlessClient.Input
         private readonly ICurrentMapStateRepository _currentMapStateRepository;
         private readonly IActiveDialogProvider _activeDialogProvider;
         private readonly IClientWindowSizeProvider _clientWindowSizeProvider;
+        private readonly IHudControlProvider _hudControlProvider;
 
         public UserInputHandlerFactory(IEndlessGameProvider endlessGameProvider,
                                        IUserInputProvider userInputProvider,
@@ -33,7 +35,8 @@ namespace EndlessClient.Input
                                        IHudButtonController hudButtonController,
                                        ICurrentMapStateRepository currentMapStateRepository,
                                        IActiveDialogProvider activeDialogProvider,
-                                       IClientWindowSizeProvider clientWindowSizeProvider)
+                                       IClientWindowSizeProvider clientWindowSizeProvider,
+                                       IHudControlProvider hudControlProvider)
         {
             _endlessGameProvider = endlessGameProvider;
             _userInputProvider = userInputProvider;
@@ -46,6 +49,7 @@ namespace EndlessClient.Input
             _currentMapStateRepository = currentMapStateRepository;
             _activeDialogProvider = activeDialogProvider;
             _clientWindowSizeProvider = clientWindowSizeProvider;
+            _hudControlProvider = hudControlProvider;
         }
 
         public IUserInputHandler CreateUserInputHandler()
@@ -60,7 +64,8 @@ namespace EndlessClient.Input
                                         _hudButtonController,
                                         _currentMapStateRepository,
                                         _activeDialogProvider,
-                                        _clientWindowSizeProvider);
+                                        _clientWindowSizeProvider,
+                                        _hudControlProvider);
         }
     }
 
