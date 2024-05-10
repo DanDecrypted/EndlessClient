@@ -35,14 +35,14 @@ namespace EndlessClient.Input
         {
             _handlers = new List<IInputHandler>
             {
-                new MovementKeyController(endlessGameProvider,
+                new MovementKeyHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     arrowKeyController,
                     currentMapStateRepository,
                     configurationProvider,
                     hudControlProvider),
-                new AttackKeyController(endlessGameProvider,
+                new AttackKeyHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     controlKeyController,

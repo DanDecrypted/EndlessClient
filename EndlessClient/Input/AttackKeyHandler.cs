@@ -11,13 +11,13 @@ using System.Linq;
 
 namespace EndlessClient.Input
 {
-    public class AttackKeyController : InputHandlerBase
+    public class AttackKeyHandler : InputHandlerBase
     {
         private readonly IAttackKeyController _attackKeyController;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IHudControlProvider _hudControlProvider;
 
-        public AttackKeyController(IEndlessGameProvider endlessGameProvider,
+        public AttackKeyHandler(IEndlessGameProvider endlessGameProvider,
                                  IUserInputProvider userInputProvider,
                                  IUserInputTimeRepository userInputTimeRepository,
                                  IAttackKeyController controlKeyController,
