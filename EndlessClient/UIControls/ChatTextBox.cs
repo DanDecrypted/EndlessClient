@@ -1,6 +1,7 @@
 ﻿using EndlessClient.Content;
 using EndlessClient.Rendering;
 using EOLib;
+using EOLib.Config;
 using EOLib.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input.InputListeners;
 using Optional;
 using System;
+using System.Linq;
 using XNAControls;
 
 namespace EndlessClient.UIControls
@@ -19,7 +21,7 @@ namespace EndlessClient.UIControls
     {
         private readonly INativeGraphicsManager _nativeGraphicsManager;
         private readonly IClientWindowSizeProvider _clientWindowSizeProvider;
-
+        private readonly IConfigurationProvider _configurationProvider;
         private bool _ignoreAllInput;
         private Option<DateTime> _endMuteTime;
 
@@ -27,14 +29,15 @@ namespace EndlessClient.UIControls
 
         public ChatTextBox(INativeGraphicsManager nativeGraphicsManager,
                            IClientWindowSizeProvider clientWindowSizeProvider,
-                           IContentProvider contentManagerProvider)
+                           IContentProvider contentManagerProvider,
+                           IConfigurationProvider configurationProvider)
             : base(Rectangle.Empty, // (124, 308, 440, 19)
                 Constants.FontSize08,
                 caretTexture: contentManagerProvider.Textures[ContentProvider.Cursor])
         {
             _nativeGraphicsManager = nativeGraphicsManager;
             _clientWindowSizeProvider = clientWindowSizeProvider;
-
+            _configurationProvider = configurationProvider;
             if (_clientWindowSizeProvider.Resizable)
             {
                 _leftSide = new Rectangle(10, 308, 12, 20);
@@ -112,6 +115,10 @@ namespace EndlessClient.UIControls
         protected override bool HandleTextInput(KeyboardEventArgs eventArgs)
         {
             if (_ignoreAllInput)
+                return false;
+
+            var wasdMovementKeys = new Keys[] { Keys.W, Keys.A, Keys.S, Keys.D, Keys.Space };
+            if (wasdMovementKeys.Contains(eventArgs.Key) && _configurationProvider.UseWasdMovement && string.IsNullOrEmpty(Text))
                 return false;
 
             if (IsSpecialInput(eventArgs.Key, eventArgs.Modifiers))

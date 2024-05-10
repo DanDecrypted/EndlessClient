@@ -190,6 +190,11 @@ namespace EOLib.Config
             return header;
         }
 
+        internal bool GetValue(string settings, object useWasdMovement, out bool tempBool)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

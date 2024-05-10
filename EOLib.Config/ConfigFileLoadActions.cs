@@ -54,6 +54,12 @@ namespace EOLib.Config
             _configRepository.ShowTransition = configFile.GetValue(ConfigStrings.Settings, ConfigStrings.ShowTransition, out tempBool) && tempBool;
             _configRepository.MusicEnabled = configFile.GetValue(ConfigStrings.Settings, ConfigStrings.Music, out tempBool) && tempBool;
             _configRepository.SoundEnabled = configFile.GetValue(ConfigStrings.Settings, ConfigStrings.Sound, out tempBool) && tempBool;
+#if DEBUG
+            _configRepository.UseWasdMovement = true;
+#else
+            _configRepository.UseWasdMovement = configFile.GetValue(ConfigStrings.Settings, ConfigStrings.UseWasdMovement, out tempBool) && tempBool;
+#endif
+
             _configRepository.ShowChatBubbles = !configFile.GetValue(ConfigStrings.Settings, ConfigStrings.ShowBaloons, out tempBool) || tempBool;
 
             _configRepository.EnableLog = configFile.GetValue(ConfigStrings.Settings, ConfigStrings.EnableLogging, out tempBool) && tempBool;

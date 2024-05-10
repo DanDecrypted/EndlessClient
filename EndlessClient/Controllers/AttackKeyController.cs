@@ -8,8 +8,8 @@ using EOLib.Localization;
 
 namespace EndlessClient.Controllers
 {
-    [MappedType(BaseType = typeof(IControlKeyController))]
-    public class ControlKeyController : IControlKeyController
+    [MappedType(BaseType = typeof(IAttackKeyController))]
+    public class AttackKeyController : IAttackKeyController
     {
         private readonly ICharacterProvider _characterProvider;
         private readonly IAttackValidationActions _attackValidationActions;
@@ -18,7 +18,7 @@ namespace EndlessClient.Controllers
         private readonly IStatusLabelSetter _statusLabelSetter;
         private readonly ISfxPlayer _sfxPlayer;
 
-        public ControlKeyController(ICharacterProvider characterProvider,
+        public AttackKeyController(ICharacterProvider characterProvider,
                                     IAttackValidationActions attackValidationActions,
                                     ICharacterActions characterActions,
                                     ICharacterAnimationActions characterAnimationActions,
@@ -90,7 +90,7 @@ namespace EndlessClient.Controllers
         }
     }
 
-    public interface IControlKeyController
+    public interface IAttackKeyController
     {
         bool Attack();
     }

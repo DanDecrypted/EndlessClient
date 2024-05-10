@@ -1,4 +1,7 @@
-﻿using EndlessClient.GameExecution;
+﻿using EndlessClient.ControlSets;
+using EndlessClient.GameExecution;
+using EndlessClient.HUD.Controls;
+using EndlessClient.UIControls;
 using EOLib.Domain.Map;
 using Microsoft.Xna.Framework.Input;
 using Optional;
@@ -17,6 +20,7 @@ namespace EndlessClient.Input
         private readonly IUserInputProvider _keyStateProvider;
         private readonly IUserInputTimeRepository _userInputTimeRepository;
         private readonly ICurrentMapStateRepository _currentMapStateRepository;
+        private readonly IHudControlProvider _hudControlProvider;
 
         private KeyboardState CurrentState => _keyStateProvider.CurrentKeyState;
 
@@ -25,12 +29,14 @@ namespace EndlessClient.Input
         protected InputHandlerBase(IEndlessGameProvider endlessGameProvider,
                                    IUserInputProvider userInputProvider,
                                    IUserInputTimeRepository userInputTimeRepository,
-                                   ICurrentMapStateRepository currentMapStateRepository)
+                                   ICurrentMapStateRepository currentMapStateRepository,
+                                   IHudControlProvider hudControlProvider)
         {
             _endlessGameProvider = endlessGameProvider;
             _keyStateProvider = userInputProvider;
             _userInputTimeRepository = userInputTimeRepository;
             _currentMapStateRepository = currentMapStateRepository;
+            _hudControlProvider = hudControlProvider;
         }
 
         public void HandleKeyboardInput(DateTime timeAtBeginningOfUpdate)
@@ -56,6 +62,11 @@ namespace EndlessClient.Input
                 });
 
             _currentMapStateRepository.MapWarpTime.MatchNone(() => HandleInput().MatchSome(_ => _userInputTimeRepository.LastInputTime = timeAtBeginningOfUpdate));
+
+            if (IsKeyHeld(Keys.Escape))
+            {
+                _hudControlProvider.GetComponent<ChatTextBox>(HudControlIdentifier.ChatTextBox).Text = "";
+            }
         }
 
         private double GetMillisecondsSinceLastUpdate(DateTime timeAtBeginningOfUpdate)

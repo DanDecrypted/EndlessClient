@@ -14,7 +14,7 @@ using Optional;
 namespace EndlessClient.Controllers
 {
     [AutoMappedType]
-    public class ArrowKeyController : IArrowKeyController
+    public class MoveKeyController : IMoveKeyController
     {
         private readonly IWalkValidationActions _walkValidationActions;
         private readonly ICharacterAnimationActions _characterAnimationActions;
@@ -26,7 +26,7 @@ namespace EndlessClient.Controllers
         private readonly IGhostingRepository _ghostingRepository;
         private readonly ISfxPlayer _sfxPlayer;
 
-        public ArrowKeyController(IWalkValidationActions walkValidationActions,
+        public MoveKeyController(IWalkValidationActions walkValidationActions,
                                   ICharacterAnimationActions characterAnimationActions,
                                   ICharacterProvider characterProvider,
                                   IUnwalkableTileActions walkErrorHandler,
@@ -145,7 +145,7 @@ namespace EndlessClient.Controllers
         }
     }
 
-    public interface IArrowKeyController
+    public interface IMoveKeyController
     {
         bool MoveLeft();
 

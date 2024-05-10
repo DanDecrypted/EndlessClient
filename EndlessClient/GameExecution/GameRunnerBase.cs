@@ -65,6 +65,8 @@ namespace EndlessClient.GameExecution
                 return false;
             }
 
+            var configurationRepository = _registry.Resolve<IConfigurationRepository>();
+
             for (int i = 0; i < _args.Length; ++i)
             {
                 var arg = _args[i];
@@ -72,7 +74,7 @@ namespace EndlessClient.GameExecution
                 if (string.Equals(arg, "--host") && i < _args.Length - 1)
                 {
                     var host = _args[i + 1];
-                    _registry.Resolve<IConfigurationRepository>().Host = host;
+                    configurationRepository.Host = host;
 
                     i++;
                 }
@@ -82,7 +84,7 @@ namespace EndlessClient.GameExecution
 
                     if (int.TryParse(port, out var intPort))
                     {
-                        _registry.Resolve<IConfigurationRepository>().Port = intPort;
+                        configurationRepository.Port = intPort;
                     }
 
                     i++;
@@ -96,8 +98,7 @@ namespace EndlessClient.GameExecution
                     }
                     else
                     {
-                        _registry.Resolve<IConfigurationRepository>()
-                            .VersionBuild = version;
+                        configurationRepository.VersionBuild = version;
                     }
 
                     i++;
@@ -111,15 +112,14 @@ namespace EndlessClient.GameExecution
                     }
                     else
                     {
-                        _registry.Resolve<IConfigurationRepository>()
-                            .AccountCreateTimeout = TimeSpan.FromMilliseconds(accountCreateTime);
+                        configurationRepository.AccountCreateTimeout = TimeSpan.FromMilliseconds(accountCreateTime);
                     }
 
                     i++;
                 }
                 else if (string.Equals(arg, "--debug"))
                 {
-                    _registry.Resolve<IConfigurationRepository>().DebugCrashes = true;
+                    configurationRepository.DebugCrashes = true;
                 }
                 else
                 {

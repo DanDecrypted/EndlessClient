@@ -1,8 +1,10 @@
 ﻿using EndlessClient.Controllers;
+using EndlessClient.ControlSets;
 using EndlessClient.Dialogs;
 using EndlessClient.GameExecution;
 using EndlessClient.HUD;
 using EndlessClient.Rendering;
+using EOLib.Config;
 using EOLib.Domain.Map;
 using Microsoft.Xna.Framework;
 using System;
@@ -20,42 +22,50 @@ namespace EndlessClient.Input
         public UserInputHandler(IEndlessGameProvider endlessGameProvider,
                                 IUserInputProvider userInputProvider,
                                 IUserInputTimeRepository userInputTimeRepository,
-                                IArrowKeyController arrowKeyController,
-                                IControlKeyController controlKeyController,
+                                IMoveKeyController arrowKeyController,
+                                IAttackKeyController controlKeyController,
                                 IFunctionKeyController functionKeyController,
                                 INumPadController numPadController,
                                 IHudButtonController hudButtonController,
                                 ICurrentMapStateRepository currentMapStateRepository,
                                 IActiveDialogProvider activeDialogProvider,
-                                IClientWindowSizeProvider clientWindowSizeProvider)
+                                IClientWindowSizeProvider clientWindowSizeProvider,
+                                IConfigurationProvider configurationProvider,
+                                IHudControlProvider hudControlProvider)
         {
             _handlers = new List<IInputHandler>
             {
-                new ArrowKeyHandler(endlessGameProvider,
+                new MovementKeyController(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     arrowKeyController,
-                    currentMapStateRepository),
-                new ControlKeyHandler(endlessGameProvider,
+                    currentMapStateRepository,
+                    configurationProvider,
+                    hudControlProvider),
+                new AttackKeyController(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     controlKeyController,
-                    currentMapStateRepository),
+                    currentMapStateRepository,
+                    configurationProvider,
+                    hudControlProvider),
                 new FunctionKeyHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     functionKeyController,
-                    currentMapStateRepository),
+                    currentMapStateRepository,
+                    hudControlProvider),
                 new NumPadHandler(endlessGameProvider,
                     userInputProvider,
                     userInputTimeRepository,
                     currentMapStateRepository,
-                    numPadController),
+                    numPadController,
+                    hudControlProvider),
             };
 
             if (clientWindowSizeProvider.Resizable)
             {
-                _handlers.Add(new PanelShortcutHandler(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository, hudButtonController));
+                _handlers.Add(new PanelShortcutHandler(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository, hudButtonController, hudControlProvider));
             }
 
             _activeDialogProvider = activeDialogProvider;
