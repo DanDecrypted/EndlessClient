@@ -1,4 +1,5 @@
 ﻿using EndlessClient.Controllers;
+using EndlessClient.ControlSets;
 using EndlessClient.GameExecution;
 using EOLib.Domain.Character;
 using EOLib.Domain.Map;
@@ -16,8 +17,9 @@ namespace EndlessClient.Input
                              IUserInputProvider userInputProvider,
                              IUserInputTimeRepository userInputTimeRepository,
                              ICurrentMapStateRepository currentMapStateRepository,
-                             INumPadController numPadController)
-            : base(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository)
+                             INumPadController numPadController,
+                             IHudControlProvider hudControlProvider)
+            : base(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository, hudControlProvider)
         {
             _numPadController = numPadController;
         }

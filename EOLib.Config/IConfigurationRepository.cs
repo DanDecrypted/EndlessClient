@@ -38,6 +38,7 @@ namespace EOLib.Config
         int InGameHeight { get; set; }
 
         bool DebugCrashes { get; set; }
+        bool UseWasdMovement { get; set; }
     }
 
     public interface IConfigurationProvider
@@ -75,6 +76,8 @@ namespace EOLib.Config
         int InGameHeight { get; }
 
         bool DebugCrashes { get; }
+
+        bool UseWasdMovement { get; }
     }
 
     [AutoMappedType(IsSingleton = true)]
@@ -113,5 +116,7 @@ namespace EOLib.Config
         public int InGameHeight { get; set; }
 
         public bool DebugCrashes { get; set; }
+
+        public bool UseWasdMovement { get; set; }
     }
 }

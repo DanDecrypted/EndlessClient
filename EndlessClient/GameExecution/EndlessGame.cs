@@ -21,8 +21,6 @@ using MonoGame.Extended.Input;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace EndlessClient.GameExecution
 {
@@ -43,11 +41,9 @@ namespace EndlessClient.GameExecution
         private readonly IMfxPlayer _mfxPlayer;
         private readonly IXnaControlSoundMapper _soundMapper;
         private readonly IFixedTimeStepRepository _fixedTimeStepRepository;
-        private readonly IMainButtonController _mainButtonController;
 
         private GraphicsDeviceManager _graphicsDeviceManager;
 
-        private KeyboardState _previousKeyState;
         private TimeSpan _lastFrameUpdate;
 
 #if DEBUG
@@ -87,7 +83,6 @@ namespace EndlessClient.GameExecution
             _mfxPlayer = mfxPlayer;
             _soundMapper = soundMapper;
             _fixedTimeStepRepository = fixedTimeStepRepository;
-            _mainButtonController = mainButtonController;
 
             _graphicsDeviceManager = new GraphicsDeviceManager(this)
             {
@@ -120,8 +115,6 @@ namespace EndlessClient.GameExecution
             IsFixedTimeStep = false;
 
             TargetElapsedTime = TimeSpan.FromMilliseconds(FixedTimeStepRepository.TICK_TIME_MS);
-
-            _previousKeyState = Keyboard.GetState();
 
             // setting Width/Height in window size repository applies the change to disable vsync
             _graphicsDeviceManager.SynchronizeWithVerticalRetrace = false;
@@ -186,8 +179,6 @@ namespace EndlessClient.GameExecution
                 {
                     _testModeLauncher.LaunchTestMode();
                 }
-
-                _previousKeyState = currentKeyState;
 #endif
                 _fixedTimeStepRepository.Tick();
 

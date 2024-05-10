@@ -72,6 +72,7 @@ namespace EndlessClient.HUD.Controls
         private readonly IClickDispatcherFactory _clickDispatcherFactory;
         private readonly IMetadataProvider<WeaponMetadata> _weaponMetadataProvider;
         private readonly ILocalizedStringFinder _localizedStringFinder;
+        private readonly IConfigurationProvider _configurationProvider;
         private IChatController _chatController;
         private IMainButtonController _mainButtonController;
 
@@ -106,7 +107,8 @@ namespace EndlessClient.HUD.Controls
                                   IFixedTimeStepRepository fixedTimeStepRepository,
                                   IClickDispatcherFactory clickDispatcherFactory,
                                   IMetadataProvider<WeaponMetadata> weaponMetadataProvider,
-                                  ILocalizedStringFinder localizedStringFinder)
+                                  ILocalizedStringFinder localizedStringFinder,
+                                  IConfigurationProvider configurationProvider)
         {
             _hudButtonController = hudButtonController;
             _hudPanelFactory = hudPanelFactory;
@@ -140,6 +142,7 @@ namespace EndlessClient.HUD.Controls
             _clickDispatcherFactory = clickDispatcherFactory;
             _weaponMetadataProvider = weaponMetadataProvider;
             _localizedStringFinder = localizedStringFinder;
+            _configurationProvider = configurationProvider;
         }
 
         public void InjectChatController(IChatController chatController,
@@ -521,7 +524,7 @@ namespace EndlessClient.HUD.Controls
 
         private ChatTextBox CreateChatTextBox()
         {
-            var chatTextBox = new ChatTextBox(_nativeGraphicsManager, _clientWindowSizeRepository, _contentProvider)
+            var chatTextBox = new ChatTextBox(_nativeGraphicsManager, _clientWindowSizeRepository, _contentProvider, _configurationProvider)
             {
                 Text = "",
                 Selected = true,

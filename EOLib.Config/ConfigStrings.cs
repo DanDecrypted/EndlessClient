@@ -42,5 +42,7 @@ namespace EOLib.Config
         public const string HearWhisper = "HearWhisper";
         public const string Interaction = "Interaction";
         public const string LogChat = "LogChat";
+
+        public static string UseWasdMovement = "UseWasdMovement";
     }
 }
