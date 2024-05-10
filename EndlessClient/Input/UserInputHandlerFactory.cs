@@ -16,8 +16,8 @@ namespace EndlessClient.Input
         private readonly IEndlessGameProvider _endlessGameProvider;
         private readonly IUserInputProvider _userInputProvider;
         private readonly IUserInputTimeRepository _userInputTimeRepository;
-        private readonly IMoveKeyController _arrowKeyController;
-        private readonly IAttackKeyController _controlKeyController;
+        private readonly IMoveKeyController _moveKeyController;
+        private readonly IAttackKeyController _attackKeyController;
         private readonly IFunctionKeyController _functionKeyController;
         private readonly INumPadController _numPadController;
         private readonly IHudButtonController _hudButtonController;
@@ -30,8 +30,8 @@ namespace EndlessClient.Input
         public UserInputHandlerFactory(IEndlessGameProvider endlessGameProvider,
                                        IUserInputProvider userInputProvider,
                                        IUserInputTimeRepository userInputTimeRepository,
-                                       IMoveKeyController arrowKeyController,
-                                       IAttackKeyController controlKeyController,
+                                       IMoveKeyController moveKeyController,
+                                       IAttackKeyController attackKeyController,
                                        IFunctionKeyController functionKeyController,
                                        INumPadController numPadController,
                                        IHudButtonController hudButtonController,
@@ -44,8 +44,8 @@ namespace EndlessClient.Input
             _endlessGameProvider = endlessGameProvider;
             _userInputProvider = userInputProvider;
             _userInputTimeRepository = userInputTimeRepository;
-            _arrowKeyController = arrowKeyController;
-            _controlKeyController = controlKeyController;
+            _moveKeyController = moveKeyController;
+            _attackKeyController = attackKeyController;
             _functionKeyController = functionKeyController;
             _numPadController = numPadController;
             _hudButtonController = hudButtonController;
@@ -61,8 +61,8 @@ namespace EndlessClient.Input
             return new UserInputHandler(_endlessGameProvider,
                                         _userInputProvider,
                                         _userInputTimeRepository,
-                                        _arrowKeyController,
-                                        _controlKeyController,
+                                        _moveKeyController,
+                                        _attackKeyController,
                                         _functionKeyController,
                                         _numPadController,
                                         _hudButtonController,

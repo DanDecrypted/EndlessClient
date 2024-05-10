@@ -20,13 +20,13 @@ namespace EndlessClient.Input
         public AttackKeyHandler(IEndlessGameProvider endlessGameProvider,
                                  IUserInputProvider userInputProvider,
                                  IUserInputTimeRepository userInputTimeRepository,
-                                 IAttackKeyController controlKeyController,
+                                 IAttackKeyController attackKeyController,
                                  ICurrentMapStateRepository currentMapStateRepository, 
                                  IConfigurationProvider configurationProvider,
                                  IHudControlProvider hudControlProvider)
             : base(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository, hudControlProvider)
         {
-            _attackKeyController = controlKeyController;
+            _attackKeyController = attackKeyController;
             _configurationProvider = configurationProvider;
             _hudControlProvider = hudControlProvider;
         }

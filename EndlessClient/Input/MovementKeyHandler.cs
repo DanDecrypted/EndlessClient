@@ -13,20 +13,20 @@ namespace EndlessClient.Input
 {
     public class MovementKeyHandler : InputHandlerBase
     {
-        private readonly IMoveKeyController moveKeyController;
+        private readonly IMoveKeyController _moveKeyController;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly IHudControlProvider _hudControlProvider;
 
         public MovementKeyHandler(IEndlessGameProvider endlessGameProvider,
                                IUserInputProvider userInputProvider,
                                IUserInputTimeRepository userInputTimeRepository,
-                               IMoveKeyController arrowKeyController,
+                               IMoveKeyController moveKeyController,
                                ICurrentMapStateRepository currentMapStateRepository,
                                IConfigurationProvider configurationProvider,
                                IHudControlProvider hudControlProvider)
             : base(endlessGameProvider, userInputProvider, userInputTimeRepository, currentMapStateRepository, hudControlProvider)
         {
-            moveKeyController = arrowKeyController;
+            _moveKeyController = moveKeyController;
             _configurationProvider = configurationProvider;
             _hudControlProvider = hudControlProvider;
         }
@@ -52,20 +52,20 @@ namespace EndlessClient.Input
             Keys? rightHeld = right.FirstOrDefault(x => IsKeyHeld(x.Value));
             Keys? upHeld = up.FirstOrDefault(x => IsKeyHeld(x.Value));
 
-            if (leftHeld.HasValue && moveKeyController.MoveLeft())
+            if (leftHeld.HasValue && _moveKeyController.MoveLeft())
                 return Option.Some(leftHeld.Value);
 
-            if (downHeld.HasValue && moveKeyController.MoveDown())
+            if (downHeld.HasValue && _moveKeyController.MoveDown())
                 return Option.Some(downHeld.Value);
 
-            if (rightHeld.HasValue && moveKeyController.MoveRight())
+            if (rightHeld.HasValue && _moveKeyController.MoveRight())
                 return Option.Some(rightHeld.Value);
 
-            if (upHeld.HasValue && moveKeyController.MoveUp())
+            if (upHeld.HasValue && _moveKeyController.MoveUp())
                 return Option.Some(upHeld.Value);
 
             if (KeysAreUp(left.Concat(down).Concat(right).Concat(up).Select(x => x.Value).ToArray()))
-                moveKeyController.KeysUp();
+                _moveKeyController.KeysUp();
 
             return Option.None<Keys>();
         }
